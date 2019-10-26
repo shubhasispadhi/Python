@@ -1,0 +1,79 @@
+LOAN APPROVAL PREDICTION CASE STUDY
+
+PROBLEM STATEMENT
+There is a company that deals in all home loans. They have presence across all urban, semi urban and rural areas. Customer first apply for home loan after that company validates the customer eligibility for loan. However doing this manually takes a lot of time. Hence it wants to automate the loan eligibility process (real time) based on customer information
+So the final thing is to identify the factors/ customer segments that are eligible for taking loan. How will the company benefit if we give the customer segments is the immediate question that arises. The solution is ….Banks would give loans to only those customers that are eligible so that they can be assured of getting the money back. Hence the more accurate we are in predicting the eligible customers the more beneficial it would be for the Company.
+The above problem is a clear classification problem as we need to classify whether the Loan Status is yes or no. So this can be solved by any of the classification techniques like Logistic Regression.
+ 
+SOURCE OF DATA
+The dataset was fetched from the data science repository i.e. kaggle. There are 2 data sets that are given. One is training data and one is testing data. The rows are loaned, gender, married, dependents, education, self-employed and many other.
+There are altogether 13 columns in our data set. Of them Loan Status is the response variable and rest all are the variables /factors that decide the approval of the loan or not.
+
+
+
+
+Exploratory Data Analysis
+The exploratory data analysis, by looking at the columns description in the above paragraph, we can make many assumptions like
+1.	The one whose salary is more can have a greater chance of loan approval.
+2.	The one who is graduate has a better chance of loan approval.
+3.	Married people would have an upper hand than unmarried people for loan approval.
+4.	The applicant who has less number of dependents have a high probability for loan approval.
+5.	The lesser the loan amount the higher the chance for getting loan.
+Why are we doing EDA?
+Like these there are many more we can assume. The basic question is we may get it well in some cases we can easily come to conclusion if we just to do EDA. Then there is no necessary for going through next models but here we have to predict the approval of the loan.
+
+
+
+
+
+Exploratory Data Analysis through python
+Firstly I just imported the necessary packages like pandas, numpy, matplotlib, seaborn etc. so that I can carry the necessary operations further.
+
+ 
+Now I am going to upload or read the files/data-sets using pandas. For this we used read_csv. Let me get the top 5 values. We can get using the head function. Hence the code would be train.head (5).
+ 
+Now let us analyze the data using single variable.
+ 
+ 
+Conclusions: (Through Single Variable Analysis)
+1.	We can see that approximately 81% are Male and 19% are female.
+2.	Percentage of applicants with no dependents is higher.
+3.	There are more number of graduates than non-graduates.
+4.	Semi Urban people is slightly higher than urban people among the applicants.
+5.	Larger Percentage of people have a good credit history.
+6.	The percentage of people that the loan has been approved has been higher rather than the percentage of applicant for which the loan has been declined.
+Now let me try different approaches to this problem. As our main target is Loan Status Variable, let us try to find if Applicant income can exactly separate the Loan Status. Suppose if I can find that if applicant income is above some X amount then Loan Status is yes .Else it is No. Firstly I am trying to plot the distribution plot based on various columns to see the outliers and carry on the preprocessing part.
+
+ 
+ 
+ 
+Here the categorical variables were treated as to see how many customers were there whose credit history and loan approval status was high according to the credit history.
+
+ 
+
+Treating the outliers that are having extreme values and cause the failure of the model when we predict so they need to treated and the outliers from the following columns should be removed.
+Getting new data columns hence the formula that is used is:-
+Total Income = Applicant Income + Co-applicant Income
+
+
+ 
+ 
+
+DATA CLEANING AND STRUCTURING—
+Before we go for modeling the data, we have to check whether the data is cleaned or not. And after cleaning part, we have to structure the Data. For cleaning part, first I have to check whether there exists any missing values. For that I am using the code snippet is null ().
+ 
+The above code suggests that there are 13 missing values in Gender, 3 in married, 15 in Dependents, 32 in Self-employed, 22 in Loan Amount, 14 in Loan_Amount_Term and 50 in Credit History.
+Except the Loan Amount and Loan_Amount_Term everything else which is missing is of type categorical. Hence we can replace the missing values by mode of that particular column. Before getting in to the code, I would like to say few things about mean, median and mode.
+Mean is nothing but the average value whereas median is nothing but the central value and mode the most occurring value. Replacing the categorical variable by mode makes some sense. For example if we take the above case, 398 are married, 213 are not married and 3 are missing. So As married people are higher in number we are considering the missing values as married. This may be right or wrong. But the probability of them being married is higher. Hence I replaced the missing values by Married. For categorical values this is fine. But what do we do for continuous variables. Should we replace by mean or by median. Let us consider the following example.
+ Hence replacing the missing values by mean does not make sense always as it is largely affected by outliers. Hence I have chosen median to replace the missing values of continuous variables.
+ 
+
+Logistic Regression:
+As here we want to classify between the people who have taken loan or not we have used Logistic Regression. The purpose of this algorithm is to find a plane that separates two types. Y variable belongs to 1 or 0. Here is the code for Logistic Regression    
+  
+As we can see average accuracy is 80.945%. I have used the same thing for predicting test data variable. 
+
+
+
+
+
